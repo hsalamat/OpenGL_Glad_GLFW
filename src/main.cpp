@@ -1,9 +1,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 constexpr int SCREEN_WIDTH = 1920;
 constexpr int SCREEN_HEIGHT = 1080;
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 int main(void)
 {
@@ -27,6 +29,8 @@ int main(void)
     /* Load opengl extension 4.6 (Windows ships with GL 1.0)*/
     gladLoadGL();
 
+	glfwSetKeyCallback(window, key_callback);
+
     /* Loop until the user closes the window (our game loop, like update function in Unity) */
     while (!glfwWindowShouldClose(window))
     {
@@ -43,4 +47,15 @@ int main(void)
 
     glfwTerminate();
     return 0;
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_E && action == GLFW_PRESS)
+    { //activate_airship();
+    }
+
+	const char* name = glfwGetKeyName(key, scancode);
+	printf("Key pressed: %s\n", name);
+
 }
