@@ -1,9 +1,19 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <cstdlib>
+#include <random>
 
 constexpr int SCREEN_WIDTH = 1920;
 constexpr int SCREEN_HEIGHT = 1080;
+
+float Random(float min, float max)
+{
+    float random = ((float)rand()) / (float)RAND_MAX;
+    float diff = max - min;
+    float r = random * diff;
+    return min + r;
+}
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
@@ -38,6 +48,11 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0.22f, 0.49f, 0.17f, 1.0f);
 
+		//Randomly move the mouse cursor
+		float x = Random(0.0f, SCREEN_WIDTH);
+		float y = Random(0.0f, SCREEN_HEIGHT);
+		glfwSetCursorPos(window, x, y);
+
         /* Swap front and back buffers (this avoid screen tear)*/
         glfwSwapBuffers(window);
 
@@ -54,6 +69,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_E && action == GLFW_PRESS)
     { //activate_airship();
     }
+
+    if(key == GLFW_KEY_ESCAPE)
+    {
+        glfwSetWindowShouldClose(window, true);
+	}
 
 	const char* name = glfwGetKeyName(key, scancode);
 	printf("Key pressed: %s\n", name);
